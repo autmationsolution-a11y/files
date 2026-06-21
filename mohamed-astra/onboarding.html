@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASTRA // MOHAMED - Onboarding Request</title>
+<style>
+  :root{
+    --bg:#050810;--bg2:#0a1120;--panel:#0d1729;--line:rgba(120,170,230,.16);--line2:rgba(120,170,230,.30);
+    --cy:#22d3ee;--blue:#3b82f6;--grn:#34d399;--amb:#fbbf24;--vio:#a78bfa;
+    --txt:#d7e3f4;--mut:#7488a6;--faint:#475a78;--mono:'SFMono-Regular',Consolas,'Roboto Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',-apple-system,Roboto,sans-serif;line-height:1.6;
+    background-image:radial-gradient(820px 460px at 50% -8%, rgba(34,211,238,.09), transparent 60%),
+      linear-gradient(rgba(120,170,230,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,170,230,.035) 1px, transparent 1px);
+    background-size:auto,34px 34px,34px 34px;-webkit-font-smoothing:antialiased;padding:36px 22px 64px}
+  .wrap{max-width:820px;margin:0 auto}
+  .back{font-family:var(--mono);font-size:11px;color:var(--cy);text-decoration:none;letter-spacing:.1em}
+  .brand{font-family:var(--mono);font-size:12px;letter-spacing:.4em;color:var(--cy);margin-top:14px}
+  h1{font-size:26px;font-weight:800;margin:8px 0 8px;letter-spacing:-.01em}
+  .lede{font-size:15px;color:var(--mut);max-width:680px}
+  .note{margin-top:14px;border:1px solid rgba(52,211,153,.26);background:rgba(52,211,153,.05);border-radius:10px;padding:12px 15px;font-size:13px;color:var(--mut)}
+  .note b{color:var(--grn)}
+
+  .grp{margin-top:24px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,var(--panel),var(--bg2));padding:18px 20px}
+  .grp h2{font-size:15px;color:var(--txt);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .grp h2 .t{font-family:var(--mono);font-size:11px;color:var(--cy);border:1px solid var(--line2);border-radius:6px;padding:3px 8px}
+  .item{display:flex;gap:11px;padding:9px 0;border-top:1px dashed var(--line)}
+  .item:first-of-type{border-top:none}
+  .box{flex-shrink:0;width:15px;height:15px;border:1.5px solid var(--line2);border-radius:4px;margin-top:3px}
+  .item .bd{font-size:13.5px}
+  .item .bd b{color:var(--txt)}
+  .item .bd small{display:block;color:var(--mut);font-size:12px;margin-top:1px}
+  .gate{margin-top:26px;border:1px solid rgba(251,191,36,.3);background:rgba(251,191,36,.05);border-radius:12px;padding:16px 18px;font-size:14px}
+  .gate b{color:#ffd877}
+  .foot{margin-top:24px;text-align:center;font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">&larr; BACK</a>
+  <div class="brand">ASTRA // MOHAMED</div>
+  <h1>Onboarding request</h1>
+  <p class="lede">The inputs that bring Astra live. Most are quick. The only data needed is one small sanitized sample, shared privately.</p>
+  <div class="note"><b>No data on GitHub.</b> Real observatory data is never uploaded here. Share the sample file by a private channel only.</div>
+
+  <div class="grp">
+    <h2><span class="t">A</span> Data</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>A1. Sample file</b> <small>one Campbell .dat / TOA5 export, 1-2 weeks, with header lines. Private, not committed.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A2. Sensor inventory</b> <small>list of instruments.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A3. Depths</b> <small>e.g. 10, 30, 50, 100 cm.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A4. Variables</b> <small>each variable with its exact column name.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A5. Units</b> <small>per variable. Matric potential: kPa / hPa / pF.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A6. Sites / stations</b> <small>station identifiers.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A7. Frequency + timezone</b> <small>sampling step and timestamp timezone.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A8. Physical limits</b> <small>hard min/max per variable (for Layer 1 checks).</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A9. Existing flags</b> <small>any quality-flag convention already in use.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">B</span> Environment</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>B1. Go-live machine + OS</b></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>B2. Python 3.10+</b> <small>and permission to install duckdb / pandas / pyarrow.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>B3. Where it runs</b> <small>CNRS machine, or Younes's machine on a copied sample.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>B4. Data location</b> <small>where the files live on disk.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">C</span> Brain</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>C1. Local model</b> <small>governance likely requires it. Confirm.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C2. Local engine</b> <small>Ollama / llama.cpp / LM Studio / vLLM / MLX.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C3. Hardware</b> <small>GPU + VRAM, or CPU + RAM. Decides model size.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C4. Emmy (optional)</b> <small>Mistral/Emmy for non-sensitive text only, if permitted.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C5. Default model</b> <small>preferred model id.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">D</span> Interface</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>D1. HUD hosting</b> <small>at 127.0.0.1:8000, or a separate host.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>D2. Voice</b> <small>on / off (off recommended for v1).</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>D3. Language</b> <small>FR / EN / bilingual.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">E</span> Repository &amp; governance</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>E1. Host</b> <small>GitHub, or mirror to a CNRS GitLab / forge.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>E2. Owner / admin</b></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>E3. Data boundary</b> <small>confirm data never leaves the machine (assumed yes).</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>E4. Requirements</b> <small>FAIR, reproducibility, licensing rules.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">F</span> Roles</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>F1. Data owner</b></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>F2. Threshold sign-off</b> <small>who validates Layer 1 limits and QC thresholds.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>F3. Decision rights</b> <small>Mohamed vs Younes.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>F4. Day-one user</b></div></div>
+  </div>
+
+  <div class="gate"><b>Go-live gate:</b> once A1-A8, B1-B3 and C1-C3 are answered, Astra can go live. The rest can follow.</div>
+
+  <div class="foot">ASTRA // MOHAMED &middot; onboarding request</div>
+
+</div>
+</body>
+</html>

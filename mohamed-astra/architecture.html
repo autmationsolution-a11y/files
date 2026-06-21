@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOHAMED // ASTRA - Brain Architecture</title>
+<style>
+  :root{
+    --bg:#050810; --bg2:#0a1120; --panel:#0d1729; --panel2:#101d36;
+    --line:rgba(120,170,230,.16); --line2:rgba(120,170,230,.30);
+    --cy:#22d3ee; --blue:#3b82f6; --grn:#34d399; --amb:#fbbf24; --vio:#a78bfa; --red:#fb7185;
+    --txt:#d7e3f4; --mut:#7488a6; --faint:#475a78;
+    --mono:'SFMono-Regular',Consolas,'Roboto Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--txt);
+    font-family:'Segoe UI',-apple-system,Roboto,sans-serif;line-height:1.55;
+    background-image:
+      radial-gradient(800px 480px at 50% -8%, rgba(34,211,238,.10), transparent 60%),
+      radial-gradient(700px 500px at 90% 20%, rgba(59,130,246,.08), transparent 55%),
+      linear-gradient(rgba(120,170,230,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,170,230,.04) 1px, transparent 1px);
+    background-size:auto,auto,34px 34px,34px 34px;
+    -webkit-font-smoothing:antialiased;padding:34px 22px 60px;
+  }
+  .wrap{max-width:980px;margin:0 auto}
+
+  .top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:8px}
+  .brand{font-family:var(--mono);font-size:13px;letter-spacing:.42em;color:var(--cy);text-shadow:0 0 16px rgba(34,211,238,.5)}
+  .brand b{color:var(--txt)}
+  h1{font-size:23px;font-weight:800;letter-spacing:-.01em;margin-top:8px}
+  .sub{color:var(--mut);font-size:13.5px;max-width:560px}
+  .status{font-family:var(--mono);font-size:10.5px;color:var(--mut);text-align:right;line-height:1.9}
+  .status .on{color:var(--grn)} .status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--grn);box-shadow:0 0 9px var(--grn);margin-right:6px}
+
+  .flowlabel{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;text-align:center;margin:18px 0 6px}
+
+  .layer{
+    position:relative;border:1px solid var(--line);border-radius:14px;
+    background:linear-gradient(180deg,var(--panel),var(--bg2));
+    padding:16px 18px 18px;margin:0 auto;
+  }
+  .layer + .arrow{height:30px;display:flex;align-items:center;justify-content:center}
+  .arrow span{font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .arrow .ln{width:1px;height:30px;background:linear-gradient(var(--line2),transparent);position:relative}
+  .arrow .ln::after{content:"";position:absolute;bottom:0;left:-3px;border:3.5px solid transparent;border-top-color:var(--line2)}
+
+  .lhead{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .tier{font-family:var(--mono);font-size:10px;letter-spacing:.16em;padding:4px 9px;border-radius:6px;border:1px solid var(--line2);color:var(--mut);white-space:nowrap}
+  .lhead h2{font-size:16px;font-weight:700;letter-spacing:.01em}
+  .lhead .role{margin-left:auto;font-size:12px;color:var(--mut);font-style:italic;text-align:right}
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:12.5px;padding:8px 12px;border-radius:9px;border:1px solid var(--line);background:rgba(120,170,230,.04);display:flex;gap:8px;align-items:center}
+  .chip .i{font-size:13px}
+  .chip b{color:var(--txt);font-weight:600}
+  .chip small{color:var(--mut);font-size:11px}
+
+  /* accent variants */
+  .face{border-color:rgba(52,211,153,.32);box-shadow:0 0 34px rgba(52,211,153,.06) inset}
+  .face .tier{color:var(--grn);border-color:rgba(52,211,153,.4)}
+  .brain{border-color:rgba(167,139,250,.42);box-shadow:0 0 50px rgba(167,139,250,.14),0 0 40px rgba(167,139,250,.06) inset}
+  .brain .tier{color:var(--vio);border-color:rgba(167,139,250,.5)}
+  .brain h2{color:#cdbcff;text-shadow:0 0 18px rgba(167,139,250,.4)}
+  .reflex{border-color:rgba(251,191,36,.3)}
+  .reflex .tier{color:var(--amb);border-color:rgba(251,191,36,.4)}
+  .body0{border-color:rgba(34,211,238,.32)}
+  .body0 .tier{color:var(--cy);border-color:rgba(34,211,238,.42)}
+
+  .corner{position:absolute;width:11px;height:11px;border-color:var(--line2);opacity:.7}
+  .c1{top:-1px;left:-1px;border-left:1.5px solid;border-top:1.5px solid;border-top-left-radius:13px}
+  .c2{top:-1px;right:-1px;border-right:1.5px solid;border-top:1.5px solid;border-top-right-radius:13px}
+  .c3{bottom:-1px;left:-1px;border-left:1.5px solid;border-bottom:1.5px solid;border-bottom-left-radius:13px}
+  .c4{bottom:-1px;right:-1px;border-right:1.5px solid;border-bottom:1.5px solid;border-bottom-right-radius:13px}
+
+  .sensors{text-align:center;font-family:var(--mono);font-size:11px;color:var(--mut);border:1px dashed var(--line2);border-radius:12px;padding:12px;margin-top:6px;background:rgba(34,211,238,.03)}
+  .sensors b{color:var(--cy)}
+
+  .shield{margin-top:26px;border:1px solid rgba(120,170,230,.2);border-radius:14px;padding:15px 18px;background:linear-gradient(180deg,rgba(16,29,54,.5),rgba(10,17,32,.5))}
+  .shield .h{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--blue);text-transform:uppercase;margin-bottom:10px}
+  .shield .chips .chip{border-color:rgba(59,130,246,.22)}
+
+  .road{margin-top:26px}
+  .road .h{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--mut);text-transform:uppercase;margin-bottom:12px;text-align:center}
+  .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:760px){.phases{grid-template-columns:1fr 1fr}.lhead .role{display:none}}
+  .pnode{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--panel);position:relative}
+  .pnode .pn{font-family:var(--mono);font-size:10px;color:var(--cy);letter-spacing:.1em}
+  .pnode h4{font-size:13.5px;margin:5px 0 5px}
+  .pnode p{font-size:11.5px;color:var(--mut);line-height:1.45}
+  .pnode.now{border-color:rgba(52,211,153,.45)}
+  .pnode.now .pn{color:var(--grn)}
+  .pnode.now::after{content:"BUILD FIRST";position:absolute;top:-9px;right:10px;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;background:var(--grn);color:#04140d;padding:3px 7px;border-radius:5px;font-weight:700}
+
+  .foot{margin-top:24px;text-align:center;font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <div class="brand">A S T R A &nbsp;<b>// MOHAMED</b></div>
+      <h1>AI brain for the Unsaturated Zone Observatory</h1>
+      <div class="sub">A local-first research assistant that ingests the sensor data, watches it for anomalies, reasons over it in natural language, and grows from a data tool into an autonomous research partner.</div>
+    </div>
+    <div class="status">
+      <div><span class="dot"></span><span class="on">SYSTEM</span> &middot; local / on-prem</div>
+      <div>DATA &middot; never leaves CNRS</div>
+      <div>MODE &middot; grows in 4 phases</div>
+    </div>
+  </div>
+
+  <div class="flowlabel">&#9651; output &middot; interaction &nbsp;|&nbsp; data flows upward &#9651;</div>
+
+  <!-- FACE -->
+  <div class="layer face">
+    <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+    <div class="lhead"><span class="tier">THE FACE</span><h2>Interface &amp; HUD</h2><span class="role">how Mohamed talks to Astra</span></div>
+    <div class="chips">
+      <div class="chip"><span class="i">&#128421;</span><div><b>Cinematic dashboard</b> <small>dark, live KPIs, sparklines</small></div></div>
+      <div class="chip"><span class="i">&#128172;</span><div><b>Natural-language chat</b> <small>ask the data anything</small></div></div>
+      <div class="chip"><span class="i">&#127908;</span><div><b>Voice control</b> <small>hands-free queries</small></div></div>
+      <div class="chip"><span class="i">&#128680;</span><div><b>Anomaly alerts</b> <small>flagged in real time</small></div></div>
+      <div class="chip"><span class="i">&#128202;</span><div><b>Auto figures</b> <small>plots ready for papers</small></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="ln"></div></div>
+
+  <!-- BRAIN -->
+  <div class="layer brain">
+    <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+    <div class="lhead"><span class="tier">THE BRAIN</span><h2>AI reasoning core</h2><span class="role">the part that thinks</span></div>
+    <div class="chips">
+      <div class="chip"><span class="i">&#129504;</span><div><b>Local LLM</b> <small>on-prem, 127.0.0.1, private</small></div></div>
+      <div class="chip"><span class="i">&#128296;</span><div><b>Tool calling</b> <small>queries DuckDB, runs stats, plots</small></div></div>
+      <div class="chip"><span class="i">&#128218;</span><div><b>RAG knowledge</b> <small>QC rules, data dictionary, literature</small></div></div>
+      <div class="chip"><span class="i">&#129516;</span><div><b>Project memory</b> <small>remembers context across sessions</small></div></div>
+      <div class="chip"><span class="i">&#9881;</span><div><b>Agentic workflows</b> <small>"clean last month", "correlate depth 30cm"</small></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="ln"></div></div>
+
+  <!-- REFLEXES -->
+  <div class="layer reflex">
+    <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+    <div class="lhead"><span class="tier">THE REFLEXES</span><h2>Processing &amp; quality control</h2><span class="role">runs automatically</span></div>
+    <div class="chips">
+      <div class="chip"><span class="i">&#9989;</span><div><b>Anomaly engine L1-4</b> <small>physical, statistical, physics cross-checks, ML</small></div></div>
+      <div class="chip"><span class="i">&#129529;</span><div><b>Cleaning &amp; flags</b> <small>nothing deleted, all documented</small></div></div>
+      <div class="chip"><span class="i">&#128279;</span><div><b>Correlation analysis</b> <small>variables, depths, lagged response</small></div></div>
+      <div class="chip"><span class="i">&#128300;</span><div><b>Derived features</b> <small>retention curve, fluxes</small></div></div>
+    </div>
+  </div>
+
+  <div class="arrow"><div class="ln"></div></div>
+
+  <!-- BODY -->
+  <div class="layer body0">
+    <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+    <div class="lhead"><span class="tier">THE BODY</span><h2>Data foundation</h2><span class="role">memory &amp; senses</span></div>
+    <div class="chips">
+      <div class="chip"><span class="i">&#128268;</span><div><b>Campbell parser</b> <small>TOA5 / .dat ingestion</small></div></div>
+      <div class="chip"><span class="i">&#128203;</span><div><b>Standard schema</b> <small>time, site, sensor, depth, variable, value, flag</small></div></div>
+      <div class="chip"><span class="i">&#128190;</span><div><b>DuckDB + Parquet</b> <small>fast local store, tens of millions of rows</small></div></div>
+    </div>
+  </div>
+
+  <div class="sensors">&#9650; &nbsp; INPUT &nbsp; <b>multi-depth Campbell sensors</b> &middot; water content, matric potential, soil temperature, EC, meteo &middot; hourly since 2021</div>
+
+  <!-- SHIELD -->
+  <div class="shield">
+    <div class="h">&#128737; Governance shield (wraps everything)</div>
+    <div class="chips">
+      <div class="chip"><span class="i">&#127969;</span><div><b>Local-first</b> <small>data never leaves CNRS</small></div></div>
+      <div class="chip"><span class="i">&#128274;</span><div><b>Emmy</b> <small>secure CNRS+Mistral for sensitive text</small></div></div>
+      <div class="chip"><span class="i">&#128193;</span><div><b>Git versioning</b> <small>every QC threshold tracked</small></div></div>
+      <div class="chip"><span class="i">&#9851;</span><div><b>FAIR + reproducible</b> <small>publication-grade trail</small></div></div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="road">
+    <div class="h">&#9656; Growth path - Astra grows with Mohamed</div>
+    <div class="phases">
+      <div class="pnode now">
+        <div class="pn">PHASE 1</div>
+        <h4>Foundation</h4>
+        <p>Body + Reflexes. Ingest, store, and the anomaly engine. Delivers the clean dataset.</p>
+      </div>
+      <div class="pnode">
+        <div class="pn">PHASE 2</div>
+        <h4>The Brain wakes</h4>
+        <p>Local LLM + tool calling + RAG. Ask the data in plain language, get grounded answers.</p>
+      </div>
+      <div class="pnode">
+        <div class="pn">PHASE 3</div>
+        <h4>Agentic</h4>
+        <p>Scheduled QC, auto anomaly reports, draft methods sections, figure generation.</p>
+      </div>
+      <div class="pnode">
+        <div class="pn">PHASE 4</div>
+        <h4>Fleet</h4>
+        <p>Scale to more sensors, sites, and other observatories. One brain, many bodies.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">ASTRA // MOHAMED &middot; architecture draft &middot; local-first AI for the unsaturated zone observatory</div>
+
+</div>
+</body>
+</html>
