@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASTRA // MOHAMED - Demande d'onboarding</title>
+<style>
+  :root{
+    --bg:#050810;--bg2:#0a1120;--panel:#0d1729;--line:rgba(120,170,230,.16);--line2:rgba(120,170,230,.30);
+    --cy:#22d3ee;--blue:#3b82f6;--grn:#34d399;--amb:#fbbf24;--vio:#a78bfa;
+    --txt:#d7e3f4;--mut:#7488a6;--faint:#475a78;--mono:'SFMono-Regular',Consolas,'Roboto Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',-apple-system,Roboto,sans-serif;line-height:1.6;
+    background-image:radial-gradient(820px 460px at 50% -8%, rgba(34,211,238,.09), transparent 60%),
+      linear-gradient(rgba(120,170,230,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,170,230,.035) 1px, transparent 1px);
+    background-size:auto,34px 34px,34px 34px;-webkit-font-smoothing:antialiased;padding:36px 22px 64px}
+  .wrap{max-width:820px;margin:0 auto}
+  .back{font-family:var(--mono);font-size:11px;color:var(--cy);text-decoration:none;letter-spacing:.1em}
+  .brand{font-family:var(--mono);font-size:12px;letter-spacing:.4em;color:var(--cy);margin-top:14px}
+  h1{font-size:26px;font-weight:800;margin:8px 0 8px;letter-spacing:-.01em}
+  .lede{font-size:15px;color:var(--mut);max-width:680px}
+  .note{margin-top:14px;border:1px solid rgba(52,211,153,.26);background:rgba(52,211,153,.05);border-radius:10px;padding:12px 15px;font-size:13px;color:var(--mut)}
+  .note b{color:var(--grn)}
+
+  .grp{margin-top:24px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,var(--panel),var(--bg2));padding:18px 20px}
+  .grp h2{font-size:15px;color:var(--txt);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .grp h2 .t{font-family:var(--mono);font-size:11px;color:var(--cy);border:1px solid var(--line2);border-radius:6px;padding:3px 8px}
+  .item{display:flex;gap:11px;padding:9px 0;border-top:1px dashed var(--line)}
+  .item:first-of-type{border-top:none}
+  .box{flex-shrink:0;width:15px;height:15px;border:1.5px solid var(--line2);border-radius:4px;margin-top:3px}
+  .item .bd{font-size:13.5px}
+  .item .bd b{color:var(--txt)}
+  .item .bd small{display:block;color:var(--mut);font-size:12px;margin-top:1px}
+  .gate{margin-top:26px;border:1px solid rgba(251,191,36,.3);background:rgba(251,191,36,.05);border-radius:12px;padding:16px 18px;font-size:14px}
+  .gate b{color:#ffd877}
+  .foot{margin-top:24px;text-align:center;font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">&larr; RETOUR</a>
+  <div class="brand">ASTRA // MOHAMED</div>
+  <h1>Demande d'onboarding</h1>
+  <p class="lede">Les informations qui permettent de lancer Astra. La plupart sont rapides. La seule donnée nécessaire est un petit échantillon anonymisé, partagé en privé.</p>
+  <div class="note"><b>Aucune donnée sur GitHub.</b> Les vraies données de l'observatoire ne sont jamais téléversées ici. Partage le fichier exemple uniquement par un canal privé.</div>
+
+  <div class="grp">
+    <h2><span class="t">A</span> Données</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>A1. Fichier exemple</b> <small>un export Campbell .dat / TOA5, 1 à 2 semaines, avec les lignes d'en-tête. Privé, non versionné.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A2. Inventaire des capteurs</b> <small>liste des instruments.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A3. Profondeurs</b> <small>ex. 10, 30, 50, 100 cm.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A4. Variables</b> <small>chaque variable avec son nom de colonne exact.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A5. Unités</b> <small>par variable. Potentiel matriciel : kPa / hPa / pF.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A6. Sites / stations</b> <small>identifiants des stations.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A7. Fréquence + fuseau horaire</b> <small>pas d'échantillonnage et fuseau des horodatages.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A8. Limites physiques</b> <small>min/max stricts par variable (pour les contrôles de Niveau 1).</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>A9. Drapeaux existants</b> <small>toute convention de drapeau qualité déjà en place.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">B</span> Environnement</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>B1. Machine + OS</b> <small>la machine qui fait tourner Astra.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>B2. Python 3.10+</b> <small>et la permission d'installer duckdb / pandas / pyarrow.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>B3. Où ça tourne</b> <small>machine CNRS, ou machine de Younes sur un échantillon copié.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>B4. Emplacement des données</b> <small>où les fichiers se trouvent sur le disque.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">C</span> Cerveau</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>C1. Modèle local</b> <small>la gouvernance l'exige probablement. À confirmer.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C2. Moteur local</b> <small>Ollama / llama.cpp / LM Studio / vLLM / MLX.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C3. Matériel</b> <small>GPU + VRAM, ou CPU + RAM. Détermine la taille du modèle.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C4. Emmy (optionnel)</b> <small>Mistral/Emmy pour texte non sensible uniquement, si autorisé.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>C5. Modèle par défaut</b> <small>identifiant du modèle préféré.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">D</span> Interface</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>D1. Hébergement du HUD</b> <small>à 127.0.0.1:8000, ou un autre hôte.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>D2. Voix</b> <small>activée / désactivée (désactivée recommandée pour la v1).</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>D3. Langue</b> <small>FR / EN / bilingue.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">E</span> Dépôt &amp; gouvernance</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>E1. Hôte</b> <small>GitHub, ou miroir vers un GitLab / forge CNRS.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>E2. Propriétaire / admin</b></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>E3. Frontière des données</b> <small>confirmer que les données ne quittent jamais la machine (supposé oui).</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>E4. Exigences</b> <small>FAIR, reproductibilité, licence.</small></div></div>
+  </div>
+
+  <div class="grp">
+    <h2><span class="t">F</span> Rôles</h2>
+    <div class="item"><span class="box"></span><div class="bd"><b>F1. Propriétaire des données</b></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>F2. Validation des seuils</b> <small>qui valide les limites de Niveau 1 et les seuils qualité.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>F3. Droits de décision</b> <small>Mohamed vs Younes.</small></div></div>
+    <div class="item"><span class="box"></span><div class="bd"><b>F4. Utilisateur du jour 1</b></div></div>
+  </div>
+
+  <div class="gate"><b>Seuil de démarrage :</b> une fois A1-A8, B1-B3 et C1-C3 renseignés, Astra peut démarrer. Le reste peut suivre.</div>
+
+  <div class="foot">ASTRA // MOHAMED &middot; demande d'onboarding</div>
+
+</div>
+</body>
+</html>
