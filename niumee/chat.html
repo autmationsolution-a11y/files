@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nima — test chat</title>
+<style>
+  :root{
+    --bg:#0b141a; --panel:#111b21; --bar:#1f2c33; --me:#005c4b; --them:#202c33;
+    --txt:#e9edef; --dim:#8696a0; --line:#2a3942; --accent:#00a884; --warn:#f0b232;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--txt);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;display:flex;flex-direction:column}
+  header{background:var(--bar);padding:10px 14px;display:flex;align-items:center;gap:10px;flex:0 0 auto;border-bottom:1px solid var(--line)}
+  .av{width:38px;height:38px;border-radius:50%;background:var(--accent);display:grid;place-items:center;font-weight:700;color:#04231c;flex:0 0 auto}
+  .who{flex:1;min-width:0}
+  .who b{display:block;font-size:15px}
+  .who span{display:block;font-size:12px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  button.reset{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:8px;padding:7px 11px;font-size:12px}
+  main{flex:1 1 auto;overflow-y:auto;padding:14px 12px 6px;display:flex;flex-direction:column;gap:8px}
+  .row{display:flex}
+  .row.me{justify-content:flex-end}
+  .b{max-width:82%;padding:8px 11px;border-radius:9px;white-space:pre-wrap;word-wrap:break-word}
+  .me .b{background:var(--me);border-top-right-radius:2px}
+  .them .b{background:var(--them);border-top-left-radius:2px}
+  .t{font-size:10px;color:var(--dim);margin-top:3px;text-align:right}
+  .card{align-self:flex-start;max-width:82%;background:#182229;border:1px solid var(--warn);border-left:3px solid var(--warn);border-radius:8px;padding:9px 11px;font-size:12.5px;color:#d8dde0}
+  .card b{color:var(--warn);display:block;margin-bottom:4px;font-size:11px;letter-spacing:.4px}
+  .card div{margin:1px 0}
+  .typing{color:var(--dim);font-size:13px;font-style:italic;padding-left:4px}
+  footer{flex:0 0 auto;background:var(--bar);padding:9px 10px;display:flex;gap:8px;align-items:flex-end;padding-bottom:calc(9px + env(safe-area-inset-bottom))}
+  textarea{flex:1;resize:none;background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:20px;padding:10px 14px;font:inherit;max-height:110px;min-height:42px}
+  textarea:focus{outline:none;border-color:var(--accent)}
+  button.send{background:var(--accent);border:0;color:#04231c;width:44px;height:44px;border-radius:50%;font-size:19px;flex:0 0 auto}
+  button:disabled{opacity:.45}
+  .note{font-size:11.5px;color:var(--dim);text-align:center;padding:6px 16px 10px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="av">N</div>
+  <div class="who">
+    <b>Nima</b>
+    <span id="sess">test session</span>
+  </div>
+  <button class="reset" id="reset">New chat</button>
+</header>
+
+<main id="log">
+  <div class="row them"><div class="b">Hi! This is the test version of Nima. Ask me anything, exactly as a client would.</div></div>
+</main>
+
+<div class="note">Nothing here reaches a real client. Reception cards are shown on screen instead of being sent.</div>
+
+<footer>
+  <textarea id="msg" rows="1" placeholder="Type a message" autocomplete="off"></textarea>
+  <button class="send" id="send" title="Send">➤</button>
+</footer>
+
+<script>
+const URL_ = "https://n8n.srv1308023.hstgr.cloud/webhook/niumee-webchat";
+const log = document.getElementById('log');
+const msg = document.getElementById('msg');
+const send = document.getElementById('send');
+
+// One stable identity per browser so the bot keeps conversation context, exactly like a real number.
+function newId(){ return "3569" + Math.floor(100000000 + Math.random()*899999999); }
+let phone = localStorage.getItem('nima_phone') || (localStorage.setItem('nima_phone', newId()), localStorage.getItem('nima_phone'));
+let who   = localStorage.getItem('nima_name') || "";
+if(!who){ who = prompt("Your name (so we can find your session in the logs):") || "Tester"; localStorage.setItem('nima_name', who); }
+document.getElementById('sess').textContent = who + " · " + phone;
+
+function clock(){ return new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+function bubble(text, mine){
+  const r = document.createElement('div'); r.className = 'row ' + (mine ? 'me' : 'them');
+  const b = document.createElement('div'); b.className = 'b'; b.textContent = text;
+  const t = document.createElement('div'); t.className = 't'; t.textContent = clock();
+  b.appendChild(t); r.appendChild(b); log.appendChild(r); log.scrollTop = log.scrollHeight;
+}
+function card(d){
+  const c = document.createElement('div'); c.className = 'card';
+  const rows = [['Service', d.service], ['Provider', d.provider], ['Date', d.date], ['Time', d.time], ['Notes', d.notes]]
+    .filter(([,v]) => v && String(v).trim());
+  c.innerHTML = "<b>▲ RECEPTION WOULD GET A CARD</b>" +
+    (rows.length ? rows.map(([k,v]) => "<div><b style='display:inline;color:#8696a0;letter-spacing:0'>"+k+":</b> "+
+      String(v).replace(/[<>&]/g, s=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[s]))+"</div>").join("")
+      : "<div>(no details captured)</div>");
+  log.appendChild(c); log.scrollTop = log.scrollHeight;
+}
+
+let busy = false;
+async function ship(){
+  const text = msg.value.trim();
+  if(!text || busy) return;
+  bubble(text, true);
+  msg.value = ''; msg.style.height = 'auto';
+  busy = true; send.disabled = true;
+
+  const wait = document.createElement('div');
+  wait.className = 'typing'; wait.textContent = 'Nima is typing…';
+  log.appendChild(wait); log.scrollTop = log.scrollHeight;
+
+  try{
+    const r = await fetch(URL_, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ data:{ pushName: who,
+        key:{ remoteJid: phone + "@s.whatsapp.net" },
+        message:{ conversation: text } } })
+    });
+    const raw = await r.text();
+    let d = {}; try { d = JSON.parse(raw); } catch(e) { d = { reply: raw }; }
+    wait.remove();
+    bubble(d.reply || "(no reply came back)", false);
+    if(d.escalate) card(d);
+  }catch(e){
+    wait.remove();
+    bubble("Could not reach Nima: " + e.message + "\nTell Younes, and stop testing until it is back.", false);
+  }
+  busy = false; send.disabled = false; msg.focus();
+}
+
+send.onclick = ship;
+msg.addEventListener('keydown', e => { if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); ship(); } });
+msg.addEventListener('input', () => { msg.style.height = 'auto'; msg.style.height = Math.min(msg.scrollHeight, 110) + 'px'; });
+document.getElementById('reset').onclick = () => {
+  if(!confirm("Start a brand new conversation? Nima will forget everything you just said.")) return;
+  localStorage.setItem('nima_phone', newId());
+  location.reload();
+};
+</script>
+</body>
+</html>
