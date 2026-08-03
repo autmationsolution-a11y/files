@@ -65,10 +65,19 @@ const log = document.getElementById('log');
 const msg = document.getElementById('msg');
 const send = document.getElementById('send');
 
-// One stable identity per browser so the bot keeps conversation context, exactly like a real number.
-function newId(){ return "3569" + Math.floor(100000000 + Math.random()*899999999); }
-let phone = localStorage.getItem('nima_phone') || (localStorage.setItem('nima_phone', newId()), localStorage.getItem('nima_phone'));
-let who   = localStorage.getItem('nima_name') || "";
+// The tester must use their REAL number. Nima looks up past appointments by phone number, so a
+// made-up one makes it answer "you have no bookings with us" for everybody - which is what
+// happened on the first test of 3 Aug. Digits only, country code included, no + and no spaces.
+function askPhone(){
+  let p = prompt("Your REAL WhatsApp number, digits only with country code.\n\nExample: 35699990893\n\nNima finds your past appointments by this number, so a made up one will show no history.");
+  if(p === null) return null;
+  p = String(p).replace(/[^0-9]/g, '');
+  if(p.length < 8){ alert("That does not look like a full number. Include the country code, e.g. 35699990893"); return askPhone(); }
+  return p;
+}
+let phone = localStorage.getItem('nima_phone') || "";
+if(!phone || phone.length < 8){ phone = askPhone() || "35600000000"; localStorage.setItem('nima_phone', phone); }
+let who = localStorage.getItem('nima_name') || "";
 if(!who){ who = prompt("Your name (so we can find your session in the logs):") || "Tester"; localStorage.setItem('nima_name', who); }
 document.getElementById('sess').textContent = who + " · " + phone;
 
@@ -125,9 +134,17 @@ send.onclick = ship;
 msg.addEventListener('keydown', e => { if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); ship(); } });
 msg.addEventListener('input', () => { msg.style.height = 'auto'; msg.style.height = Math.min(msg.scrollHeight, 110) + 'px'; });
 document.getElementById('reset').onclick = () => {
-  if(!confirm("Start a brand new conversation? Nima will forget everything you just said.")) return;
-  localStorage.setItem('nima_phone', newId());
-  location.reload();
+  if(!confirm("Start a brand new conversation? Nima will forget everything you just said.\n\nYour number stays the same, so your real appointment history still works.")) return;
+  // Clearing the session on the server side is what "new chat" means. The number must NOT change,
+  // otherwise appointment lookups stop working - see the note above.
+  fetch(URL_, { method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ data:{ pushName: who, key:{ remoteJid: phone + "@s.whatsapp.net" },
+      message:{ conversation: "__reset__" } } }) }).catch(()=>{});
+  log.innerHTML = '<div class="row them"><div class="b">New conversation. Ask me anything.</div></div>';
+};
+document.getElementById('sess').onclick = () => {
+  if(!confirm("Change the number you are testing as?")) return;
+  localStorage.removeItem('nima_phone'); localStorage.removeItem('nima_name'); location.reload();
 };
 </script>
 </body>
