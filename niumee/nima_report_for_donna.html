@@ -1,0 +1,310 @@
+<title>Nima Progress Report</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+ :root{--bg:#f7f6f3;--card:#fff;--ink:#22201d;--soft:#5d574f;--faint:#918a80;--line:#e5e0d8;
+  --sage:#5a7d6f;--sagebg:#e8efeb;--amber:#9a6f18;--amberbg:#f8efdc;--rose:#a04a45;--rosebg:#f8ebea;
+  --shadow:0 1px 2px rgba(34,32,29,.04),0 8px 24px rgba(34,32,29,.06)}
+ :root:not([data-theme=light]){@media(prefers-color-scheme:dark){
+  --bg:#16151300;--bg:#161513;--card:#1e1d1a;--ink:#f0ede7;--soft:#bdb6ac;--faint:#8d867c;
+  --line:#332f2a;--sage:#89bfae;--sagebg:#1a2b25;--amber:#dcae5c;--amberbg:#2d2412;
+  --rose:#e0908b;--rosebg:#2f1b1a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.45)}}
+ :root[data-theme=dark]{--bg:#161513;--card:#1e1d1a;--ink:#f0ede7;--soft:#bdb6ac;--faint:#8d867c;
+  --line:#332f2a;--sage:#89bfae;--sagebg:#1a2b25;--amber:#dcae5c;--amberbg:#2d2412;
+  --rose:#e0908b;--rosebg:#2f1b1a;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.45)}
+ *{box-sizing:border-box}html,body{margin:0}
+ body{background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,Segoe UI,sans-serif;
+  padding:50px 22px 80px;line-height:1.55;-webkit-font-smoothing:antialiased}
+ .w{max-width:840px;margin:0 auto}
+ .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sage);
+  font-weight:600;margin-bottom:12px}
+ h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:44px;line-height:1.08;
+  margin:0;letter-spacing:-.01em;text-wrap:balance}
+ .sub{color:var(--soft);font-size:15px;margin:12px 0 34px;max-width:60ch}
+ h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:27px;font-weight:600;
+  margin:46px 0 6px;letter-spacing:-.005em}
+ .lead{color:var(--soft);font-size:14px;margin:0 0 18px;max-width:64ch}
+ .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+ .k{background:var(--card);padding:20px 16px}
+ .k .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:40px;font-weight:600;line-height:1;
+  font-variant-numeric:tabular-nums;color:var(--sage)}
+ .k.w .v{color:var(--amber)}
+ .k .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);
+  font-weight:600;margin-top:6px;line-height:1.35}
+ .callout{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--sage);
+  border-radius:12px;padding:20px 22px;font-size:14.5px;line-height:1.65;box-shadow:var(--shadow)}
+ .callout b{color:var(--sage)}
+ .fx,.ask{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px 19px;
+  margin-bottom:10px;box-shadow:var(--shadow);border-left:3px solid var(--sage)}
+ .fx.prog{border-left-color:var(--amber)}
+ .ask{border-left-color:var(--amber)}
+ .fx header,.ask header{display:flex;gap:12px;align-items:baseline;margin-bottom:8px}
+ .fx h3,.ask h3{font-size:15.5px;margin:0;font-weight:600;flex:1;line-height:1.35}
+ .tag,.atag{font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:100px;white-space:nowrap;
+  text-transform:uppercase;letter-spacing:.05em;background:var(--sagebg);color:var(--sage)}
+ .fx.prog .tag{background:var(--amberbg);color:var(--amber)}
+ .atag{background:var(--amberbg);color:var(--amber)}
+ .fx p,.ask p{margin:0 0 6px;font-size:13.5px;color:var(--soft)}
+ .fx .now{color:var(--ink);margin-bottom:0}
+ .fx .now b{color:var(--sage)}
+ .ask p{margin-bottom:0}
+ table{width:100%;border-collapse:collapse;font-size:13.5px}
+ td{padding:8px 12px;border-bottom:1px solid var(--line)}
+ tr:last-child td{border-bottom:none}
+ td.n{text-align:right;color:var(--soft);font-variant-numeric:tabular-nums;width:96px}
+ tr.more td{color:var(--faint);font-style:italic;font-size:12.5px}
+ details{background:var(--card);border:1px solid var(--line);border-radius:11px;margin-bottom:8px;
+  overflow:hidden;box-shadow:var(--shadow)}
+ summary{cursor:pointer;padding:13px 17px;font-weight:600;font-size:14.5px;display:flex;
+  align-items:center;gap:10px;list-style:none}
+ summary::-webkit-details-marker{display:none}
+ summary::before{content:"▸";color:var(--faint);font-size:11px}
+ details[open] summary::before{content:"▾"}
+ .dn{flex:1} .dc{font-variant-numeric:tabular-nums;color:var(--faint);font-size:13px;font-weight:500}
+ .star{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;background:var(--amberbg);
+  color:var(--amber);padding:2px 8px;border-radius:100px;font-weight:700;margin-left:8px}
+ details table{border-top:1px solid var(--line)}
+ .thanks{font-size:14px;color:var(--soft);background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);line-height:1.62}
+ .foot{margin-top:48px;padding-top:15px;border-top:1px solid var(--line);font-size:11.5px;
+  color:var(--faint);display:flex;justify-content:space-between}
+ @media(max-width:620px){.kpis{grid-template-columns:repeat(2,1fr)}h1{font-size:34px}}
+</style>
+<div class="w">
+ <div class="eyebrow">Niumee &middot; Nima virtual receptionist</div>
+ <h1>Progress report for Donna</h1>
+ <div class="sub">What the team found in testing on 24 and 25 August, what has been corrected,
+  and the decisions we need from you. Prepared 26 August 2026.</div>
+
+ <div class="kpis">
+  <div class="k"><div class="v">88</div><div class="l">Conversations reviewed</div></div>
+  <div class="k"><div class="v">8</div><div class="l">Faults corrected</div></div>
+  <div class="k"><div class="v">0</div><div class="l">Incorrect prices given</div></div>
+  <div class="k w"><div class="v">293</div><div class="l">Services Nima cannot see</div></div>
+ </div>
+
+ <h2>The main finding</h2>
+ <div class="callout">
+  Your team kept reporting that Nima offers treatments nobody asked for. Following one missing keratin
+  product led us to the cause. <b>293 of the 975 services you sell are not in Nima's records at all</b>,
+  close to a third. All six CelluSmooth treatments are missing, which is exactly why you were told only
+  a consultation exists. When the right service is absent, Nima offers the closest thing it can see.
+  <br><br>
+  The reassuring part is what this is not. Across three days of conversations Nima did not invent a
+  single price, deposit or staff name. <b>Every figure it gave was correct.</b> The issue is what it has
+  never been shown, not what it makes up.
+ </div>
+
+ <h2>Corrected this week</h2>
+ <p class="lead">Each was traced from your team's actual conversations, corrected, then retested using
+  the tester's own wording.</p>
+ 
+  <article class="fx done">
+    <header><h3>Touch-up clients were being sent for a consultation they do not need</h3><span class="tag">27 services</span></header>
+    <p class="was">Reported by Clarissa for yearly eyebrows. It was in fact happening on every touch-up service in the clinic, so existing clients were being turned away from a booking they were entitled to.</p>
+    <p class="now"><b>Now:</b> Nima now confirms the client has had their initial session, then books the treatment directly.</p>
+  </article>
+
+  <article class="fx done">
+    <header><h3>Keratin menu was wrong and incomplete</h3><span class="tag">3 services</span></header>
+    <p class="was">Cadiveu was still being offered although it has been withdrawn, and the two treatments the salon actually promotes were not in the system at all.</p>
+    <p class="now"><b>Now:</b> Cadiveu removed. QIQI Hair Controller Treatment and New Life Pro added with prices taken from Zenoti. Nima also now knows colour may be done with QIQI but not the others.</p>
+  </article>
+
+  <article class="fx done">
+    <header><h3>A keratin enquiry returned a massage and two haircuts</h3><span class="tag">verified</span></header>
+    <p class="was">Aaron tested "what types of hair keratin and smoothing services do you provide" and received a Soothing Head, Neck and Shoulder Massage alongside two haircuts.</p>
+    <p class="now"><b>Now:</b> The same question now returns the three keratin treatments and nothing else.</p>
+  </article>
+
+  <article class="fx done">
+    <header><h3>Questions were answered with a price list instead of an answer</h3><span class="tag">verified</span></header>
+    <p class="was">"Can I do tattoo removal in summer?" returned five prices and never addressed summer. The same happened whenever a client named a stylist or a date.</p>
+    <p class="now"><b>Now:</b> Nima now answers the question that was asked, then offers the options.</p>
+  </article>
+
+  <article class="fx done">
+    <header><h3>A client could not change her appointment time</h3><span class="tag">verified</span></header>
+    <p class="was">Jessica said three times that the slot no longer suited her and was asked for her email address each time, with no way out of the booking.</p>
+    <p class="now"><b>Now:</b> Saying the time does not work now takes the client straight back to the available slots.</p>
+  </article>
+
+  <article class="fx prog">
+    <header><h3>A team member was told to seek urgent medical attention</h3><span class="tag">IN PROGRESS</span></header>
+    <p class="was">Alessandro wrote that he wanted to reschedule because he had woken up with a fever. Nima treated it as a medical emergency and raised a false clinical alert to reception.</p>
+    <p class="now"><b>Now:</b> Identified and reproduced. The fix is in progress and is the first priority.</p>
+  </article>
+
+  <article class="fx done">
+    <header><h3>A former colleague was still bookable</h3><span class="tag">verified</span></header>
+    <p class="was">Frima Dag-o had left the clinic but was still named as a nail technician and, more importantly, was still available to be booked for appointments.</p>
+    <p class="now"><b>Now:</b> Removed everywhere, including the appointment system roster.</p>
+  </article>
+
+  <article class="fx prog">
+    <header><h3>A team member messaged three times and received no reply</h3><span class="tag">11 pending</span></header>
+    <p class="was">Aishah was not recognised because her mobile number had been recorded incorrectly.</p>
+    <p class="now"><b>Now:</b> Corrected. A further 11 colleagues are affected by the same recording error and we need their correct numbers.</p>
+  </article>
+
+ <h2>What we need from you</h2>
+ <p class="lead">These are decisions only the clinic can make. Nothing has been changed on assumption.</p>
+ 
+  <article class="ask">
+    <header><h3>Highlights and the mandatory toner</h3><span class="atag">Salon decision</span></header>
+    <p>Clarissa has confirmed a toner is compulsory with highlights and needs its own time in the appointment. Before we build this we need to know whether it should be a single combined service, or two linked bookings.</p>
+  </article>
+
+  <article class="ask">
+    <header><h3>Correct mobile numbers for 11 colleagues</h3><span class="atag">Numbers needed</span></header>
+    <p>Aishah traore, Andrea Salgado, Bernadeth Lozada, Dr Aleksandra Rovnaya, Dr Dinnaru Gonzales, Dr Stavroula Nikhtopoulou, Dr Thierry Van Hemelryck, Emna El yousfi, Erin Crossley, Foued Hamza and Martina mesatamayo. None of them can currently use Nima.</p>
+  </article>
+
+  <article class="ask">
+    <header><h3>Which of the missing services should Nima offer</h3><span class="atag">Your review</span></header>
+    <p>194 services need your review, grouped by department below. Each one also needs its pricing rule, deposit rule and whether clients may see it, in the same way the current catalogue is governed.</p>
+  </article>
+
+  <article class="ask">
+    <header><h3>Colour with keratin</h3><span class="atag">Confirm</span></header>
+    <p>We have set this so colour may be done with QIQI but not with the other keratin treatments. This came to us through Clarissa and is worth confirming with Alberto.</p>
+  </article>
+
+ <h2>Services for your review</h2>
+ <p class="lead">Of the 293 missing services, 99 appear to be excluded intentionally,
+  such as Open Weekend promotions, add-ons, internal fees and training courses. The remaining
+  <b>194</b> are grouped below by department. None have been added. Every service in Nima
+  today carries your approved pricing rule, deposit rule and visibility setting, and we would rather
+  bring these to you than load them without that.</p>
+ 
+    <details open>
+      <summary><span class="dn">Hair salon <span class="star">priority for Monday</span></span><span class="dc">33</span></summary>
+      <table><tr><td>Hair extentions - POR</td><td class=n>&euro;600</td></tr>
+<tr><td>QIQI Hair Controller Treatment</td><td class=n>&euro;300</td></tr>
+<tr><td>Laser hair removal full body Male - by doctor</td><td class=n>&euro;275</td></tr>
+<tr><td>New Life Pro treatment</td><td class=n>&euro;250</td></tr>
+<tr><td>Laser hair removal full body women - by doctor</td><td class=n>&euro;225</td></tr>
+<tr><td>Laser hair removal full leg + bikini - by doctor</td><td class=n>&euro;150</td></tr>
+<tr><td>Laser hair removal full leg, bikini + buttocks - by doctor</td><td class=n>&euro;140</td></tr>
+<tr><td>Laser hair removal full leg, bikini + underarms - by doctor</td><td class=n>&euro;140</td></tr>
+<tr><td>Laser hair removal - full chest, abdomen + shoulders - by doctor</td><td class=n>&euro;130</td></tr>
+<tr><td>Laser hair removal full chest, back + shoulders  - by doctor</td><td class=n>&euro;130</td></tr>
+<tr><td>Laser hair removal full chest + back - by doctor</td><td class=n>&euro;110</td></tr>
+<tr><td>Laser hair removal half leg + bikini - by doctor</td><td class=n>&euro;105</td></tr>
+<tr><td>Laser hair removal full chest male - by doctor</td><td class=n>&euro;85</td></tr>
+<tr><td>Laser hair removal chest female - by doctor</td><td class=n>&euro;75</td></tr>
+<tr class="more"><td colspan="2">and 19 more in this department</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Medical, tests &amp; consults</span><span class="dc">55</span></summary>
+      <table><tr><td>True Check Test</td><td class=n>&euro;1350</td></tr>
+<tr><td>Cardiometabolic Serum Blood Test</td><td class=n>&euro;424</td></tr>
+<tr><td>Wellness 360 test</td><td class=n>&euro;380</td></tr>
+<tr><td>Thyroid Advanced Test</td><td class=n>&euro;300</td></tr>
+<tr><td>Thyroid Complete Test</td><td class=n>&euro;277</td></tr>
+<tr><td>Lab Multiple Bloods payment</td><td class=n>&euro;207</td></tr>
+<tr><td>Fatty Acid Test</td><td class=n>&euro;140</td></tr>
+<tr><td>Laser - Full Leg by Doctor</td><td class=n>&euro;130</td></tr>
+<tr><td>Laser - Genital Area (Male) and Buttocks by Doctor</td><td class=n>&euro;100</td></tr>
+<tr><td>Laser - Full Back and Shoulders by Doctor</td><td class=n>&euro;95</td></tr>
+<tr><td>Initial Nutritional Consultation</td><td class=n>&euro;90</td></tr>
+<tr><td>Laser - Full Back by Doctor</td><td class=n>&euro;85</td></tr>
+<tr><td>Consultation with Consultant Ophtalmologist Mr Matthew Fenech</td><td class=n>&euro;80</td></tr>
+<tr><td>Consultation with Dr Mark Formosa</td><td class=n>&euro;80</td></tr>
+<tr class="more"><td colspan="2">and 41 more in this department</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Injectables &amp; threads</span><span class="dc">16</span></summary>
+      <table><tr><td>Bull horn / Lip flip</td><td class=n>&euro;2100</td></tr>
+<tr><td>Deep line threads</td><td class=n>&euro;1100</td></tr>
+<tr><td>Full neck threads</td><td class=n>&euro;1100</td></tr>
+<tr><td>Jawline threads</td><td class=n>&euro;1100</td></tr>
+<tr><td>Fox eyes threads</td><td class=n>&euro;950</td></tr>
+<tr><td>Neck threads</td><td class=n>&euro;950</td></tr>
+<tr><td>Smoker lines threads</td><td class=n>&euro;900</td></tr>
+<tr><td>Lip outline threads</td><td class=n>&euro;800</td></tr>
+<tr><td>Marionette lines threads</td><td class=n>&euro;800</td></tr>
+<tr><td>Belotero Volume 3ml</td><td class=n>&euro;520</td></tr>
+<tr><td>Belotero Volume 2ml</td><td class=n>&euro;400</td></tr>
+<tr><td>Belotero Volume 1ml</td><td class=n>&euro;280</td></tr>
+<tr><td>Beletero intense</td><td class=n>&euro;260</td></tr>
+<tr><td>Beletero Balance</td><td class=n>&euro;230</td></tr>
+<tr class="more"><td colspan="2">and 2 more in this department</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Facials &amp; skin</span><span class="dc">9</span></summary>
+      <table><tr><td>VI chemical peel presicion plus</td><td class=n>&euro;360</td></tr>
+<tr><td>VI chemical peel purify</td><td class=n>&euro;275</td></tr>
+<tr><td>Obagi Radiance Peel ( by Doctor)</td><td class=n>&euro;180</td></tr>
+<tr><td>Neostrata Peel</td><td class=n>&euro;135</td></tr>
+<tr><td>Obagi Radiance Peel ( by nurse)</td><td class=n>&euro;120</td></tr>
+<tr><td>BB Glow treatment</td><td class=n>&euro;75</td></tr>
+<tr><td>Body - Elemis Exotic Body Scrub including Face</td><td class=n>&euro;50</td></tr>
+<tr><td>Body -  Elemis Exotic Body Scrub</td><td class=n>&euro;45</td></tr>
+<tr><td>Girls Open Day  -  Dermapen Consultation</td><td class=n>&euro;0</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Brows, lashes &amp; SPMU</span><span class="dc">9</span></summary>
+      <table><tr><td>Brow lift / Pony tail lift</td><td class=n>&euro;3100</td></tr>
+<tr><td>Ear Piercing Open Day x 3</td><td class=n>&euro;81</td></tr>
+<tr><td>Velashape 1 hour treatment</td><td class=n>&euro;79</td></tr>
+<tr><td>Ear Piercing Open Day x 2</td><td class=n>&euro;58</td></tr>
+<tr><td>Velashape 30 minutes</td><td class=n>&euro;45</td></tr>
+<tr><td>Ear Piercing Open Day x 1</td><td class=n>&euro;36</td></tr>
+<tr><td>Girls Open Day  - Free Brows Consultation &amp; Brow Mapping</td><td class=n>&euro;0</td></tr>
+<tr><td>Girls Open Day - Piercing appointment</td><td class=n>&euro;0</td></tr>
+<tr><td>Velashape Consultation</td><td class=n>&euro;0</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Surgery</span><span class="dc">7</span></summary>
+      <table><tr><td>FUE- MAX</td><td class=n>&euro;3800</td></tr>
+<tr><td>BBL Surgery</td><td class=n>&euro;2500</td></tr>
+<tr><td>4+ Excision on lesions ( POR )</td><td class=n>&euro;490</td></tr>
+<tr><td>4+ Shaving of lesions ( POR )</td><td class=n>&euro;390</td></tr>
+<tr><td>Cosmetic surgery consultaion- Dr Hamza</td><td class=n>&euro;70</td></tr>
+<tr><td>Plastic Surgery Consultation - Dr  Walid Eljabu</td><td class=n>&euro;70</td></tr>
+<tr><td>Post surgery Garment</td><td class=n>&euro;0</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Body &amp; contouring</span><span class="dc">6</span></summary>
+      <table><tr><td>CelluSmooth 1.5-Hour Session ( Three Areas )</td><td class=n>&euro;150</td></tr>
+<tr><td>CelluSmooth 1-Hour Session ( Two Areas )</td><td class=n>&euro;110</td></tr>
+<tr><td>CelluSmooth Recovery 45-Minute Session</td><td class=n>&euro;100</td></tr>
+<tr><td>CelluSmooth 30-Minute Session (One Area)</td><td class=n>&euro;75</td></tr>
+<tr><td>CelluSmooth Recovery 30-Minute Session</td><td class=n>&euro;70</td></tr>
+<tr><td>CelluSmooth Recovery 15-Minute Session</td><td class=n>&euro;45</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Massage &amp; body</span><span class="dc">1</span></summary>
+      <table><tr><td>Ear Candling</td><td class=n>&euro;20</td></tr></table>
+    </details>
+    <details>
+      <summary><span class="dn">Other</span><span class="dc">58</span></summary>
+      <table><tr><td>Surgeon fees</td><td class=n>&euro;1000</td></tr>
+<tr><td>Unilateral Entropion Repair</td><td class=n>&euro;750</td></tr>
+<tr><td>Implanon fitting</td><td class=n>&euro;480</td></tr>
+<tr><td>Implanon replacement</td><td class=n>&euro;470</td></tr>
+<tr><td>Mirena removal + fitting</td><td class=n>&euro;455</td></tr>
+<tr><td>XLase 6 hr Laser Package</td><td class=n>&euro;450</td></tr>
+<tr><td>Mirena insertion</td><td class=n>&euro;425</td></tr>
+<tr><td>Repair of split or widened earring hole - Bilateral</td><td class=n>&euro;399</td></tr>
+<tr><td>I&amp;C Chalazion Upper Eyelid Unilateral - Dr Maria Aguis</td><td class=n>&euro;393</td></tr>
+<tr><td>doc service</td><td class=n>&euro;370</td></tr>
+<tr><td>Sleep study kit</td><td class=n>&euro;350</td></tr>
+<tr><td>Repair of split or widened earring hole - Unilateral</td><td class=n>&euro;335</td></tr>
+<tr><td>Sclero-therapy</td><td class=n>&euro;335</td></tr>
+<tr><td>One-to-One Shadowing</td><td class=n>&euro;300</td></tr>
+<tr class="more"><td colspan="2">and 44 more in this department</td></tr></table>
+    </details>
+
+ <h2>With thanks to your team</h2>
+ <div class="thanks">
+  Every correction in this report came from someone at Niumee taking the time to test properly and
+  write down exactly what should have happened instead. Clarissa, Kiraz, Chanelle, Jamie, Ilona, Jade,
+  Aaron, Maria and yourself. Telling us an answer was wrong identifies a problem. Telling us what the
+  right answer was is what let us fix it the same day and prove it. That is the reason the price
+  accuracy is where it is.
+ </div>
+
+ <div class="foot"><span>Niumee AI receptionist &middot; progress report</span><span>26 August 2026</span></div>
+</div>
