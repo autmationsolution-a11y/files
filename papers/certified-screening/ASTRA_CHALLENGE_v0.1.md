@@ -1,0 +1,30 @@
+# Challenge pack for Astra: draft v0.1 (2026-09-11)
+
+Paper: "Certified Screening of Outbound Health Data Packages: Distribution-Free Guarantees on Over-Disclosure with Verifiable Audit Receipts". Authors: Younes Boujoudar, Mayur Rele. Target: IEEE J-BHI. Draft PDF (9 pages): https://github.com/autmationsolution-a11y/files/raw/main/papers/certified-screening/DRAFT_v0.1_2026-09-11.pdf
+
+## What the paper claims
+
+1. Formulation: outbound disclosure screening as joint risk control over three per-package losses: L1 missed excess (non-decreasing in threshold), L2 wrongful flags on required elements (non-increasing), L3 indicator that a Part 2 element was released unflagged. Unit of exchangeability is the package.
+2. Theorem 1 (joint guarantee): Learn-then-Test with Hoeffding-Bentkus p-values and fixed-sequence testing (upward for L1 and L3 at delta/2, downward for L2 at delta/2); with probability 1 - delta every certified threshold satisfies R1 <= alpha, R2 <= beta, R3 <= alpha3 simultaneously. Corollary: with zero empirical risk, certifying alpha_k needs e(1-alpha_k)^n <= delta/2, so n >= 233 at 0.02 and n >= 469 at 0.01 (delta 0.05).
+3. Theorem 2 (transfer under covariate shift): importance-weighted empirical risks with an empirical-Bernstein margin; weights bounded by W; specializes Aldirawi-Li-Guo 2026 and Zecchin et al. 2025 to the finite-grid multi-risk case.
+4. Proposition 3 (verifiable certificate): certificate commits to calibration-set hash, screener hash, policy version, grid, threshold, targets, delta, n, and the per-package loss table; an auditor recomputes the certified set from the loss table alone (no patient data) and detects any alteration.
+5. Benchmark: Synthea FHIR R4, two cohorts (900 general, 3,319 aged 40 to 95), 1,360 packages (1,020 in three calibration organizations, 340 in a held-out organization with a heavier whole-chart habit), 182,357 elements (123,386 structured, 58,971 narrative), labels: 47,667 required, 79,035 not justified, 1,000 prohibited without consent (Part 2), 25,762 potentially relevant, 1,306 conditional, 27,587 unable to determine. Six mechanisms M1 whole chart (capped at 150 elements within 24 months), M2 encounter bundles, M3 copy-forward text, M4 wrong template, M5 Part 2 without consent, M6 attachment metadata. Policy: CMS DMEPOS PA checklist for PMD K0856/K0861. Labels derived from policy plus request before any mechanism runs.
+6. Legal scope: Part 2 (42 CFR 2.13(a)) and prior-auth packages beyond the payer's published requirement; treatment referrals excluded (45 CFR 164.502(b)(2)(i)); reasonable reliance (164.514(d)(3)(iii)(B)) means only content beyond the request is checkable; information blocking treated as a reported workflow metric.
+
+## Results (all from outputs, targets alpha 0.05, beta 0.02, alpha3 0.01, delta 0.05, grid M 100, 20 calibration/test splits of the 1,020 calibration-pool packages)
+
+- Rules (request allow-list): certified in 20/20 splits, certified interval [0.01, 0.40] in every split, selected threshold 0.31 (min flags), test risks R1 0.004, R2 0.000, R3 0.000, violations 0/20. Marginal CRC threshold for L1 alone 0.40, test R1 0.003 to 0.005.
+- DS4P sensitivity labels: abstained 20/20 (cannot reach alpha at any threshold). Presidio identifier redactor: abstained 20/20.
+- Rules on the 360-package common subset (calibration half 180): abstained 20/20, sample size below the n >= 469 floor.
+- Element metrics at 0.31: structured precision 0.73 recall 1.00 retention 1.000; narrative precision 0.25 recall 0.98 retention 1.000; 90 flags per package; high-risk package miss rate 0 over 161 Part 2 packages.
+- Transfer: W 3.23 (held-out org draws M1 37 percent vs 11 percent, M3 32 vs 19 percent). Unweighted rules threshold 0.40 held on the held-out org: R1 0.009, R2 0, R3 0, no violation. Weighted certification abstained: second Bernstein term 7W log(2/delta')/(3(n-1)) = 0.069 > beta = 0.02 at n = 1,020; would need roughly 3,500 packages.
+- Robustness (rules, seed-0 threshold): clean R1 0.005; prompt injection (60 packages) R1 0.001; policy drift v2 R1 0.005; R2 0 in all.
+- Workflow (test split, 510 packages, one minute per flag): no screener 52,355 excess elements released per 1,000 packages; rules plus reviewer at agreement 0.70/0.85/0.95: 15,963 / 8,157 / 2,818 residual; 89,967 review minutes per 1,000 packages, 37,788 of them on false flags; required elements removed by reviewer: 0.
+- Audit (200 receipts): plain DB detects 0 of 6 tampering cases; signed Merkle log detects 6 of 6 including single-operator rewrite (auditor holds a prior signed tree head), verify 1.2 ms clean, append 0.18 ms; PoA chain (3 validators, 2-of-3) detects 6 of 6 plus two-validator collusion, verify 8.7 ms, append 0.02 ms amortized. Certificate recomputation: OK; tampered loss table detected; threshold swap outside interval detected. Pre-registered H5 second clause (chain detects what the log does not) NOT supported; blockchain removed from title and contributions.
+- Language-model screeners (Qwen 3.5 4B local, hybrid and model-alone): PENDING, scoring in progress; two-package timing test showed the model alone wrongly flagged 4/20 and 15/19 required elements where rules flagged none.
+
+## Pre-registered hypotheses status
+H-T1 supported (rules). H-T4 supported (Presidio abstains; hybrid pending). H-T2 not supported in either direction (unweighted held, weighted abstained). H5 first clause supported, second clause not supported. H1 supported on structured side pending model rows. H2, H3 curve, H4 pending model rows.
+
+## Known weaknesses the authors already state
+No expert validation of labels yet (policy-derived only). Synthetic population and templated mobility narrative. Rules score base-note sentences 0.4 to 0.5, hence 90 flags per package. Reviewer is a two-parameter model. Weights exact only because pathway is observable in the simulation. Two bib entries have placeholder author lists (arXiv 2312.10214, 2604.09630). No real organizational traffic.
